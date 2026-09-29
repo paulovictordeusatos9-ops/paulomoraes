@@ -162,6 +162,10 @@ function CursorLight() {
   useEffect(() => {
     const onMove = (event: MouseEvent) => {
       target.current = { x: event.clientX, y: event.clientY };
+      pos.current = { x: event.clientX, y: event.clientY };
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate3d(${event.clientX - 90}px, ${event.clientY - 90}px, 0)`;
+      }
     };
     const onClick = (event: MouseEvent) => {
       const id = performance.now();
@@ -170,15 +174,10 @@ function CursorLight() {
         setClickLights((current) => current.filter((light) => light.id !== id));
       }, 1500);
     };
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("click", onClick);
     let frame = 0;
     const tick = () => {
-      pos.current.x += (target.current.x - pos.current.x) * 0.16;
-      pos.current.y += (target.current.y - pos.current.y) * 0.16;
-      if (glowRef.current) {
-        glowRef.current.style.transform = `translate3d(${pos.current.x - 90}px, ${pos.current.y - 90}px, 0)`;
-      }
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
