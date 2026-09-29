@@ -176,7 +176,7 @@ function CursorLight() {
       pos.current.x += (target.current.x - pos.current.x) * 0.16;
       pos.current.y += (target.current.y - pos.current.y) * 0.16;
       if (glowRef.current) {
-        glowRef.current.style.transform = `translate3d(${pos.current.x - 210}px, ${pos.current.y - 210}px, 0)`;
+        glowRef.current.style.transform = `translate3d(${pos.current.x - 140}px, ${pos.current.y - 140}px, 0)`;
       }
       frame = requestAnimationFrame(tick);
     };
@@ -190,9 +190,9 @@ function CursorLight() {
 
   return (
     <>
-      <div ref={glowRef} className="pointer-events-none fixed left-0 top-0 z-[45] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.035)_38%,transparent_72%)] mix-blend-screen" />
+      <div ref={glowRef} className="pointer-events-none fixed left-0 top-0 z-[45] h-[280px] w-[280px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.035)_38%,transparent_72%)] mix-blend-screen" />
       {clickLights.map((light) => (
-        <div key={light.id} className="click-light pointer-events-none fixed z-[45] h-[260px] w-[260px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.05)_42%,transparent_72%)] mix-blend-screen" style={{ left: light.x - 130, top: light.y - 130 }} />
+        <div key={light.id} className="click-light pointer-events-none fixed z-[45] h-[180px] w-[180px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.05)_42%,transparent_72%)] mix-blend-screen" style={{ left: light.x - 90, top: light.y - 90 }} />
       ))}
     </>
   );
