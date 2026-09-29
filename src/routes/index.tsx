@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, MessageCircle, WandSparkles } from "lucide-react";
+import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import logoAsset from "@/assets/paulo-moraes-logo.png.asset.json";
 import aniversarioAsset from "@/assets/foto-aniversario.png.asset.json";
@@ -201,6 +201,7 @@ function CursorLight() {
 function Index() {
   const [photoFilter, setPhotoFilter] = useState<string | null>(null);
   const [introVisible, setIntroVisible] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
   const visiblePhotos = photoFilter ? aiPhotos.filter((photo) => photo.type === photoFilter) : aiPhotos;
 
   useEffect(() => {
@@ -238,14 +239,35 @@ function Index() {
           <a href="#inicio" className="flex items-center gap-3">
             <img src={logoAsset.url} alt="Logo Paulo Moraes" className="h-10 w-10 rounded-xl border border-white/15 object-cover" />
           </a>
-          <nav className="hidden items-center gap-7 text-sm text-white/60 md:flex">
-            <a href="#servicos" className="transition hover:text-white">Serviços</a>
-            <a href="#projetos" className="transition hover:text-white">Projetos</a>
-            <a href="#sobre" className="transition hover:text-white">Sobre</a>
-            <a href="#contato" className="transition hover:text-white">Contato</a>
-          </nav>
-          <a href="#contato" className="rounded-full border border-white/15 bg-white px-4 py-2 text-sm font-medium text-black transition hover:bg-white/90">Vamos conversar</a>
+          <div className="flex items-center gap-3">
+            <nav className="hidden items-center gap-7 text-sm text-white/60 md:flex">
+              <a href="#servicos" className="transition hover:text-white">Serviços</a>
+              <a href="#projetos" className="transition hover:text-white">Projetos</a>
+              <a href="#sobre" className="transition hover:text-white">Sobre</a>
+              <a href="#contato" className="transition hover:text-white">Contato</a>
+            </nav>
+            <a href="#contato" className="hidden rounded-full border border-white/15 bg-white px-4 py-2 text-sm font-medium text-black transition hover:bg-white/90 sm:inline-flex">Vamos conversar</a>
+            <button
+              type="button"
+              aria-label="Abrir menu"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((open) => !open)}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:border-white/30 hover:text-white md:hidden"
+            >
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+        {menuOpen && (
+          <div className="border-t border-white/10 bg-[#010101]/95 backdrop-blur-xl md:hidden">
+            <nav className="mx-auto flex max-w-6xl flex-col px-5 py-4 text-sm">
+              {[["#servicos", "Serviços"], ["#projetos", "Projetos"], ["#sobre", "Sobre"], ["#contato", "Contato"]].map(([href, label]) => (
+                <a key={href} href={href} onClick={() => setMenuOpen(false)} className="border-b border-white/5 py-3 text-white/70 transition hover:text-white last:border-b-0">{label}</a>
+              ))}
+              <a href="#contato" onClick={() => setMenuOpen(false)} className="mt-4 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90">Vamos conversar</a>
+            </nav>
+          </div>
+        )}
       </header>
 
       <section id="inicio" className="relative flex min-h-screen items-center pt-20">
