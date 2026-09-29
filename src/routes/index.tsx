@@ -176,12 +176,12 @@ function Index() {
           <div className="intro-panel intro-panel-top absolute inset-x-0 top-0 h-1/2 bg-[#050505]" />
           <div className="intro-panel intro-panel-bottom absolute inset-x-0 bottom-0 h-1/2 bg-[#050505]" />
           <div className="intro-content absolute inset-0 flex flex-col items-center justify-center gap-7">
-            <div className="relative flex h-40 w-40 items-center justify-center">
+            <div className="relative flex h-64 w-64 items-center justify-center">
               <div className="intro-glow absolute inset-0 rounded-full bg-white/20 blur-3xl" />
-              <img src={logoAsset.url} alt="" className="intro-logo relative h-32 w-32 rounded-3xl border border-white/15 object-cover shadow-2xl shadow-black" />
+              <img src={logoAsset.url} alt="" className="intro-logo relative h-52 w-52 rounded-3xl border border-white/15 object-cover shadow-2xl shadow-black" />
             </div>
-            <div className="intro-line h-px w-28 bg-white/50" />
-            <p className="intro-tagline text-[11px] uppercase tracking-[0.4em] text-white/60">Paulo Moraes</p>
+            <div className="intro-line h-px w-40 bg-white/50" />
+            <p className="intro-tagline text-sm uppercase tracking-[0.4em] text-white/60">Paulo Moraes</p>
           </div>
         </div>
       )}
