@@ -156,15 +156,29 @@ type ClickLight = { id: number; x: number; y: number };
 function CursorLight() {
   const [clickLights, setClickLights] = useState<ClickLight[]>([]);
   const glowRef = useRef<HTMLDivElement | null>(null);
-  const target = useRef({ x: -400, y: -400 });
-  const pos = useRef({ x: -400, y: -400 });
 
   useEffect(() => {
-    const onMove = (event: MouseEvent) => {
-      target.current = { x: event.clientX, y: event.clientY };
-      pos.current = { x: event.clientX, y: event.clientY };
+    const glowSize = () => (window.innerWidth < 768 ? 110 : 180);
+    const applyGlow = (x: number, y: number) => {
+      const half = glowSize() / 2;
       if (glowRef.current) {
-        glowRef.current.style.transform = `translate3d(${event.clientX - 90}px, ${event.clientY - 90}px, 0)`;
+        glowRef.current.style.transform = `translate3d(${x - half}px, ${y - half}px, 0)`;
+      }
+    };
+    const onMove = (event: MouseEvent) => {
+      applyGlow(event.clientX, event.clientY);
+    };
+    const onTouchStart = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (touch) applyGlow(touch.clientX, touch.clientY);
+    };
+    const onTouchMove = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (touch) applyGlow(touch.clientX, touch.clientY);
+    };
+    const onTouchEnd = () => {
+      if (glowRef.current) {
+        glowRef.current.style.transform = "translate3d(-400px, -400px, 0)";
       }
     };
     const onClick = (event: MouseEvent) => {
@@ -175,6 +189,9 @@ function CursorLight() {
       }, 1500);
     };
     window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
     window.addEventListener("click", onClick);
     let frame = 0;
     const tick = () => {
@@ -183,6 +200,9 @@ function CursorLight() {
     frame = requestAnimationFrame(tick);
     return () => {
       window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("click", onClick);
       cancelAnimationFrame(frame);
     };
@@ -190,7 +210,7 @@ function CursorLight() {
 
   return (
     <>
-      <div ref={glowRef} className="pointer-events-none fixed left-0 top-0 z-[45] h-[180px] w-[180px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.035)_38%,transparent_72%)] mix-blend-screen" />
+      <div ref={glowRef} className="pointer-events-none fixed left-0 top-0 z-[45] h-[180px] w-[180px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.035)_38%,transparent_72%)] mix-blend-screen max-md:h-[110px] max-md:w-[110px]" />
       {clickLights.map((light) => (
         <div key={light.id} className="click-light pointer-events-none fixed z-[45] h-[120px] w-[120px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.05)_42%,transparent_72%)] mix-blend-screen" style={{ left: light.x - 60, top: light.y - 60 }} />
       ))}
@@ -288,37 +308,37 @@ function Index() {
       </section>
 
       <section id="servicos" className="border-t border-white/10 bg-[#000000]">
-        <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8">
+        <div className="mx-auto max-w-6xl px-5 py-14 lg:px-8">
           <div className="max-w-2xl"><p className="text-2xl font-semibold tracking-tight sm:text-3xl">Serviços</p><h2 className="mt-3 text-xs font-medium uppercase tracking-[0.2em] text-white/35">Soluções digitais para colocar sua marca no lugar certo.</h2></div>
           <div className="mt-14 grid gap-4 md:grid-cols-3">{services.map(({ icon: Icon, title, text }) => <article key={title} className="group rounded-3xl border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.045]"><div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05]"><Icon size={19} className="text-white/70" /></div><h3 className="mt-8 text-xl font-medium">{title}</h3><p className="mt-3 text-sm leading-6 text-white/45">{text}</p></article>)}</div>
         </div>
       </section>
 
       <section id="projetos" className="border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8">
+        <div className="mx-auto max-w-6xl px-5 py-14 lg:px-8">
           <div><p className="text-2xl font-semibold tracking-tight sm:text-3xl">Portfólio</p><h2 className="mt-3 text-sm font-medium uppercase tracking-[0.2em] text-white/35">Websites</h2><p className="mt-3 max-w-xl text-sm leading-6 text-white/40">Sites profissionais desenvolvidos para apresentar marcas, profissionais e negócios de forma moderna, clara e profissional na internet.</p></div>
           <div className="mt-14"><div><div className="mt-6 grid gap-5 md:grid-cols-3">{projects.filter((project) => project.category !== "Bio personalizada").map((project) => <article key={project.title} className="group overflow-hidden rounded-3xl border border-white/10 bg-[#000000]"><a href={project.url} target="_blank" rel="noreferrer" className="relative block aspect-[4/3] overflow-hidden bg-black"><img src={`https://api.microlink.io/?url=${encodeURIComponent(project.url)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1200&viewport.height=900`} alt={`Capa do site ${project.title}`} className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" /><div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" /><div className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs text-white/70 backdrop-blur-sm">Site</div></a><div className="p-6"><p className="text-xs uppercase tracking-[0.18em] text-white/30">{project.category}</p><h3 className="mt-2 text-xl font-medium">{project.title}</h3><p className="mt-2 text-sm leading-6 text-white/45">{project.description}</p><a href={project.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/75 hover:text-white">Ver projeto <ArrowUpRight size={15} /></a></div></article>)}</div></div>
-            <div className="mt-20 border-t border-white/10 pt-14"><p className="text-sm font-medium uppercase tracking-[0.2em] text-white/35">Bio personalizada</p><p className="mt-3 max-w-xl text-sm leading-6 text-white/40">Links personalizados para Instagram e redes sociais, reunindo informações e canais importantes em uma única página.</p><div className="mt-6 grid gap-5 md:grid-cols-3">{projects.filter((project) => project.category === "Bio personalizada").map((project) => <article key={project.title} className="group overflow-hidden rounded-3xl border border-white/10 bg-[#000000]"><a href={project.url} target="_blank" rel="noreferrer" className="relative block aspect-[4/3] overflow-hidden bg-black"><img src={`https://api.microlink.io/?url=${encodeURIComponent(project.url)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1200&viewport.height=900`} alt={`Capa da bio personalizada ${project.title}`} className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" /><div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" /><div className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs text-white/70 backdrop-blur-sm">Bio personalizada</div></a><div className="p-6"><p className="text-xs uppercase tracking-[0.18em] text-white/30">Bio personalizada</p><h3 className="mt-2 text-xl font-medium">{project.title}</h3><p className="mt-2 text-sm leading-6 text-white/45">{project.description}</p><a href={project.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/75 hover:text-white">Ver projeto <ArrowUpRight size={15} /></a></div></article>)}</div></div>
+            <div className="mt-10 border-t border-white/10 pt-8"><p className="text-sm font-medium uppercase tracking-[0.2em] text-white/35">Bio personalizada</p><p className="mt-3 max-w-xl text-sm leading-6 text-white/40">Links personalizados para Instagram e redes sociais, reunindo informações e canais importantes em uma única página.</p><div className="mt-6 grid gap-5 md:grid-cols-3">{projects.filter((project) => project.category === "Bio personalizada").map((project) => <article key={project.title} className="group overflow-hidden rounded-3xl border border-white/10 bg-[#000000]"><a href={project.url} target="_blank" rel="noreferrer" className="relative block aspect-[4/3] overflow-hidden bg-black"><img src={`https://api.microlink.io/?url=${encodeURIComponent(project.url)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1200&viewport.height=900`} alt={`Capa da bio personalizada ${project.title}`} className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" /><div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" /><div className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs text-white/70 backdrop-blur-sm">Bio personalizada</div></a><div className="p-6"><p className="text-xs uppercase tracking-[0.18em] text-white/30">Bio personalizada</p><h3 className="mt-2 text-xl font-medium">{project.title}</h3><p className="mt-2 text-sm leading-6 text-white/45">{project.description}</p><a href={project.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/75 hover:text-white">Ver projeto <ArrowUpRight size={15} /></a></div></article>)}</div></div>
           </div>
         </div>
       </section>
 
       <section className="border-y border-white/10 bg-[#000000]">
-        <div className="mx-auto grid max-w-6xl gap-14 px-5 py-24 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+        <div className="mx-auto grid max-w-6xl gap-14 px-5 py-14 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
           <div><p className="text-sm font-medium uppercase tracking-[0.2em] text-white/35">Fotos com IA</p></div>
           <div><p className="text-sm leading-6 text-white/40">Também crio fotos personalizadas com inteligência artificial para profissionais e momentos importantes, com propostas visuais que podem ser usadas nas redes sociais, divulgação e apresentação pessoal.</p><div className="mt-8 flex flex-wrap gap-2">{photoTypes.map((type) => <button key={type} type="button" onClick={() => setPhotoFilter((current) => (current === type ? null : type))} className={`rounded-full border px-4 py-2 text-sm transition ${photoFilter === type ? "border-white bg-white text-black" : "border-white/10 bg-white/[0.03] text-white/60 hover:border-white/30 hover:text-white"}`}>{type}</button>)}</div><div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{visiblePhotos.map((photo) => <figure key={photo.url} className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.025]"><img src={photo.url} alt={photo.alt} className="aspect-[3/4] w-full object-cover transition duration-500 hover:scale-[1.03]" loading="lazy" /><figcaption className="p-4 text-xs uppercase tracking-[0.15em] text-white/45">{photo.type}</figcaption></figure>)}</div></div>
         </div>
       </section>
 
       <section id="sobre" className="border-t border-white/10">
-        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-24 lg:grid-cols-[0.7fr_1.3fr] lg:px-8">
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-14 lg:grid-cols-[0.7fr_1.3fr] lg:px-8">
           <div><p className="text-xs uppercase tracking-[0.25em] text-white/35">Sobre mim</p><h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">Prazer, eu sou Paulo.</h2></div>
           <div className="max-w-2xl"><p className="text-xl leading-8 text-white/70">Trabalho há mais de 2 anos com criação de sites e marketing digital, ajudando profissionais e empresas a fortalecerem sua presença na internet.</p><p className="mt-5 text-base leading-7 text-white/40">Acredito que cada profissional, marca ou negócio merece uma presença digital à altura do seu trabalho. Para auxiliar nisso, ofereço soluções personalizadas como criação de sites e websites, links personalizados e fotos profissionais desenvolvidas com inteligência artificial. Tudo pensado para valorizar sua imagem e fortalecer sua presença online, ampliando a visibilidade do seu trabalho e negócio.</p></div>
         </div>
       </section>
 
       <section id="contato" className="border-t border-white/10 bg-white/[0.03]">
-        <div className="mx-auto max-w-6xl px-5 py-24 text-center lg:px-8">
+        <div className="mx-auto max-w-6xl px-5 py-14 text-center lg:px-8">
           <p className="text-xs uppercase tracking-[0.25em] text-white/35">Contato</p>
           <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl">Tem uma ideia? Vamos transformar em algo profissional.</h2>
           <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-white/45">Entre em contato para conversar sobre seu site, seu link personalizado ou suas fotos com IA.</p>
