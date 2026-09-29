@@ -169,7 +169,6 @@ function CursorLight() {
       applyGlow(event.clientX, event.clientY);
     };
     const onTouchStart = (event: TouchEvent) => {
-      isTouch = true;
       const touch = event.touches[0];
       if (touch) applyGlow(touch.clientX, touch.clientY);
     };
