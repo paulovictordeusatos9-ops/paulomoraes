@@ -257,7 +257,6 @@ function Index() {
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
-        </div>
         {menuOpen && (
           <div className="border-t border-white/10 bg-[#000000]/95 backdrop-blur-xl md:hidden">
             <nav className="mx-auto flex max-w-6xl flex-col px-5 py-4 text-sm">
