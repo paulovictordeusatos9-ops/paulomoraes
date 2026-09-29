@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, MessageCircle, WandSparkles } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import logoAsset from "@/assets/paulo-moraes-logo.png.asset.json";
@@ -151,6 +151,53 @@ const projects = [
   },
 ]
 
+type ClickLight = { id: number; x: number; y: number };
+
+function CursorLight() {
+  const [clickLights, setClickLights] = useState<ClickLight[]>([]);
+  const glowRef = useRef<HTMLDivElement | null>(null);
+  const target = useRef({ x: -400, y: -400 });
+  const pos = useRef({ x: -400, y: -400 });
+
+  useEffect(() => {
+    const onMove = (event: MouseEvent) => {
+      target.current = { x: event.clientX, y: event.clientY };
+    };
+    const onClick = (event: MouseEvent) => {
+      setClickLights((current) => {
+        const next = [...current, { id: performance.now(), x: event.clientX, y: event.clientY }];
+        return next.slice(-12);
+      });
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("click", onClick);
+    let frame = 0;
+    const tick = () => {
+      pos.current.x += (target.current.x - pos.current.x) * 0.16;
+      pos.current.y += (target.current.y - pos.current.y) * 0.16;
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate3d(${pos.current.x - 210}px, ${pos.current.y - 210}px, 0)`;
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("click", onClick);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return (
+    <>
+      <div ref={glowRef} className="pointer-events-none fixed left-0 top-0 z-[45] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.035)_38%,transparent_72%)] mix-blend-screen" />
+      {clickLights.map((light) => (
+        <div key={light.id} className="click-light pointer-events-none fixed z-[45] h-[260px] w-[260px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.05)_42%,transparent_72%)] mix-blend-screen" style={{ left: light.x - 130, top: light.y - 130 }} />
+      ))}
+    </>
+  );
+}
+
 function Index() {
   const [photoFilter, setPhotoFilter] = useState<string | null>(null);
   const [introVisible, setIntroVisible] = useState(true);
@@ -185,6 +232,7 @@ function Index() {
           </div>
         </div>
       )}
+      <CursorLight />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#050505]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
           <a href="#inicio" className="flex items-center gap-3">
