@@ -164,10 +164,11 @@ function CursorLight() {
       target.current = { x: event.clientX, y: event.clientY };
     };
     const onClick = (event: MouseEvent) => {
-      setClickLights((current) => {
-        const next = [...current, { id: performance.now(), x: event.clientX, y: event.clientY }];
-        return next.slice(-12);
-      });
+      const id = performance.now();
+      setClickLights((current) => [...current, { id, x: event.clientX, y: event.clientY }].slice(-12));
+      window.setTimeout(() => {
+        setClickLights((current) => current.filter((light) => light.id !== id));
+      }, 1500);
     };
     window.addEventListener("mousemove", onMove);
     window.addEventListener("click", onClick);
@@ -190,9 +191,9 @@ function CursorLight() {
 
   return (
     <>
-      <div ref={glowRef} className="pointer-events-none fixed left-0 top-0 z-[45] h-[280px] w-[280px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.035)_38%,transparent_72%)] mix-blend-screen" />
+      <div ref={glowRef} className="pointer-events-none fixed left-0 top-0 z-[45] h-[180px] w-[180px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.035)_38%,transparent_72%)] mix-blend-screen" />
       {clickLights.map((light) => (
-        <div key={light.id} className="click-light pointer-events-none fixed z-[45] h-[180px] w-[180px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.05)_42%,transparent_72%)] mix-blend-screen" style={{ left: light.x - 90, top: light.y - 90 }} />
+        <div key={light.id} className="click-light pointer-events-none fixed z-[45] h-[120px] w-[120px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.05)_42%,transparent_72%)] mix-blend-screen" style={{ left: light.x - 60, top: light.y - 60 }} />
       ))}
     </>
   );
