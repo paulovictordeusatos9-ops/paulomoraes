@@ -232,6 +232,7 @@ function Index() {
           </div>
         </div>
       )}
+      <CursorLight />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#050505]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
           <a href="#inicio" className="flex items-center gap-3">
