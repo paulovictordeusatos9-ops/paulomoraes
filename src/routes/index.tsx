@@ -156,8 +156,6 @@ type ClickLight = { id: number; x: number; y: number };
 function CursorLight() {
   const [clickLights, setClickLights] = useState<ClickLight[]>([]);
   const glowRef = useRef<HTMLDivElement | null>(null);
-  const target = useRef({ x: -400, y: -400 });
-  const pos = useRef({ x: -400, y: -400 });
 
   useEffect(() => {
     const glowSize = () => (window.innerWidth < 768 ? 110 : 180);
