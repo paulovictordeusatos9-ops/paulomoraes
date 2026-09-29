@@ -177,7 +177,7 @@ function CursorLight() {
       pos.current.x += (target.current.x - pos.current.x) * 0.16;
       pos.current.y += (target.current.y - pos.current.y) * 0.16;
       if (glowRef.current) {
-        glowRef.current.style.transform = `translate3d(${pos.current.x - 140}px, ${pos.current.y - 140}px, 0)`;
+        glowRef.current.style.transform = `translate3d(${pos.current.x - 90}px, ${pos.current.y - 90}px, 0)`;
       }
       frame = requestAnimationFrame(tick);
     };
