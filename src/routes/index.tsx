@@ -27,7 +27,7 @@ const services = [
   {
     icon: BriefcaseBusiness,
     title: "Sites profissionais",
-    text: "Sites modernos, responsivos e pensados para apresentar seu trabalho com clareza e profissionalismo.",
+    text: "Sites modernos, que funcionam bem no celular e mostram seu trabalho com clareza.",
   },
   {
     icon: Link2,
