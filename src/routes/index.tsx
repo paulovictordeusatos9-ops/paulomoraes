@@ -160,11 +160,29 @@ function CursorLight() {
   const pos = useRef({ x: -400, y: -400 });
 
   useEffect(() => {
-    const onMove = (event: MouseEvent) => {
-      target.current = { x: event.clientX, y: event.clientY };
-      pos.current = { x: event.clientX, y: event.clientY };
+    let isTouch = false;
+    const glowSize = () => (window.innerWidth < 768 ? 110 : 180);
+    const applyGlow = (x: number, y: number) => {
+      const half = glowSize() / 2;
       if (glowRef.current) {
-        glowRef.current.style.transform = `translate3d(${event.clientX - 90}px, ${event.clientY - 90}px, 0)`;
+        glowRef.current.style.transform = `translate3d(${x - half}px, ${y - half}px, 0)`;
+      }
+    };
+    const onMove = (event: MouseEvent) => {
+      applyGlow(event.clientX, event.clientY);
+    };
+    const onTouchStart = (event: TouchEvent) => {
+      isTouch = true;
+      const touch = event.touches[0];
+      if (touch) applyGlow(touch.clientX, touch.clientY);
+    };
+    const onTouchMove = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (touch) applyGlow(touch.clientX, touch.clientY);
+    };
+    const onTouchEnd = () => {
+      if (glowRef.current) {
+        glowRef.current.style.transform = "translate3d(-400px, -400px, 0)";
       }
     };
     const onClick = (event: MouseEvent) => {
@@ -175,6 +193,9 @@ function CursorLight() {
       }, 1500);
     };
     window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
     window.addEventListener("click", onClick);
     let frame = 0;
     const tick = () => {
@@ -183,6 +204,9 @@ function CursorLight() {
     frame = requestAnimationFrame(tick);
     return () => {
       window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("click", onClick);
       cancelAnimationFrame(frame);
     };
