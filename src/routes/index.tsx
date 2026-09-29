@@ -164,10 +164,11 @@ function CursorLight() {
       target.current = { x: event.clientX, y: event.clientY };
     };
     const onClick = (event: MouseEvent) => {
-      setClickLights((current) => {
-        const next = [...current, { id: performance.now(), x: event.clientX, y: event.clientY }];
-        return next.slice(-12);
-      });
+      const id = performance.now();
+      setClickLights((current) => [...current, { id, x: event.clientX, y: event.clientY }].slice(-12));
+      window.setTimeout(() => {
+        setClickLights((current) => current.filter((light) => light.id !== id));
+      }, 1500);
     };
     window.addEventListener("mousemove", onMove);
     window.addEventListener("click", onClick);
@@ -176,7 +177,7 @@ function CursorLight() {
       pos.current.x += (target.current.x - pos.current.x) * 0.16;
       pos.current.y += (target.current.y - pos.current.y) * 0.16;
       if (glowRef.current) {
-        glowRef.current.style.transform = `translate3d(${pos.current.x - 140}px, ${pos.current.y - 140}px, 0)`;
+        glowRef.current.style.transform = `translate3d(${pos.current.x - 90}px, ${pos.current.y - 90}px, 0)`;
       }
       frame = requestAnimationFrame(tick);
     };
@@ -190,9 +191,9 @@ function CursorLight() {
 
   return (
     <>
-      <div ref={glowRef} className="pointer-events-none fixed left-0 top-0 z-[45] h-[280px] w-[280px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.035)_38%,transparent_72%)] mix-blend-screen" />
+      <div ref={glowRef} className="pointer-events-none fixed left-0 top-0 z-[45] h-[180px] w-[180px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.035)_38%,transparent_72%)] mix-blend-screen" />
       {clickLights.map((light) => (
-        <div key={light.id} className="click-light pointer-events-none fixed z-[45] h-[180px] w-[180px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.05)_42%,transparent_72%)] mix-blend-screen" style={{ left: light.x - 90, top: light.y - 90 }} />
+        <div key={light.id} className="click-light pointer-events-none fixed z-[45] h-[120px] w-[120px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.05)_42%,transparent_72%)] mix-blend-screen" style={{ left: light.x - 60, top: light.y - 60 }} />
       ))}
     </>
   );
@@ -218,11 +219,11 @@ function Index() {
   }, []);
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#010101] text-white">
+    <main className="min-h-screen overflow-hidden bg-[#000000] text-white">
       {introVisible && (
         <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">
-          <div className="intro-panel intro-panel-top absolute inset-x-0 top-0 h-1/2 bg-[#010101]" />
-          <div className="intro-panel intro-panel-bottom absolute inset-x-0 bottom-0 h-1/2 bg-[#010101]" />
+          <div className="intro-panel intro-panel-top absolute inset-x-0 top-0 h-1/2 bg-[#000000]" />
+          <div className="intro-panel intro-panel-bottom absolute inset-x-0 bottom-0 h-1/2 bg-[#000000]" />
           <div className="intro-content absolute inset-0 flex flex-col items-center justify-center gap-7">
             <div className="relative flex h-64 w-64 items-center justify-center">
               <div className="intro-glow absolute inset-0 rounded-full bg-white/20 blur-3xl" />
@@ -234,7 +235,7 @@ function Index() {
         </div>
       )}
       <CursorLight />
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#010101]/80 backdrop-blur-xl">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#000000]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
           <a href="#inicio" className="flex items-center gap-3">
             <img src={logoAsset.url} alt="Logo Paulo Moraes" className="h-10 w-10 rounded-xl border border-white/15 object-cover" />
@@ -259,7 +260,7 @@ function Index() {
           </div>
         </div>
         {menuOpen && (
-          <div className="border-t border-white/10 bg-[#010101]/95 backdrop-blur-xl md:hidden">
+          <div className="border-t border-white/10 bg-[#000000]/95 backdrop-blur-xl md:hidden">
             <nav className="mx-auto flex max-w-6xl flex-col px-5 py-4 text-sm">
               {[["#servicos", "Serviços"], ["#projetos", "Projetos"], ["#sobre", "Sobre"], ["#contato", "Contato"]].map(([href, label]) => (
                 <a key={href} href={href} onClick={() => setMenuOpen(false)} className="border-b border-white/5 py-3 text-white/70 transition hover:text-white last:border-b-0">{label}</a>
@@ -282,14 +283,14 @@ function Index() {
             </div>
           </div>
           <div className="rise-4 relative mx-auto w-full max-w-md">
-            <div className="aspect-square overflow-hidden rounded-[2rem] border border-white/10 bg-[#030303] shadow-2xl shadow-black">
+            <div className="aspect-square overflow-hidden rounded-[2rem] border border-white/10 bg-[#000000] shadow-2xl shadow-black">
               <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.6] object-cover" fetchPriority="high" />
             </div>
           </div>
         </div>
       </section>
 
-      <section id="servicos" className="border-t border-white/10 bg-[#030303]">
+      <section id="servicos" className="border-t border-white/10 bg-[#000000]">
         <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8">
           <div className="max-w-2xl"><p className="text-2xl font-semibold tracking-tight sm:text-3xl">Serviços</p><h2 className="mt-3 text-xs font-medium uppercase tracking-[0.2em] text-white/35">Soluções digitais para colocar sua marca no lugar certo.</h2></div>
           <div className="mt-14 grid gap-4 md:grid-cols-3">{services.map(({ icon: Icon, title, text }) => <article key={title} className="group rounded-3xl border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.045]"><div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05]"><Icon size={19} className="text-white/70" /></div><h3 className="mt-8 text-xl font-medium">{title}</h3><p className="mt-3 text-sm leading-6 text-white/45">{text}</p></article>)}</div>
@@ -299,13 +300,13 @@ function Index() {
       <section id="projetos" className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-5 py-24 lg:px-8">
           <div><p className="text-2xl font-semibold tracking-tight sm:text-3xl">Portfólio</p><h2 className="mt-3 text-sm font-medium uppercase tracking-[0.2em] text-white/35">Websites</h2><p className="mt-3 max-w-xl text-sm leading-6 text-white/40">Sites profissionais desenvolvidos para apresentar marcas, profissionais e negócios de forma moderna, clara e profissional na internet.</p></div>
-          <div className="mt-14"><div><div className="mt-6 grid gap-5 md:grid-cols-3">{projects.filter((project) => project.category !== "Bio personalizada").map((project) => <article key={project.title} className="group overflow-hidden rounded-3xl border border-white/10 bg-[#040404]"><a href={project.url} target="_blank" rel="noreferrer" className="relative block aspect-[4/3] overflow-hidden bg-black"><img src={`https://api.microlink.io/?url=${encodeURIComponent(project.url)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1200&viewport.height=900`} alt={`Capa do site ${project.title}`} className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" /><div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" /><div className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs text-white/70 backdrop-blur-sm">Site</div></a><div className="p-6"><p className="text-xs uppercase tracking-[0.18em] text-white/30">{project.category}</p><h3 className="mt-2 text-xl font-medium">{project.title}</h3><p className="mt-2 text-sm leading-6 text-white/45">{project.description}</p><a href={project.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/75 hover:text-white">Ver projeto <ArrowUpRight size={15} /></a></div></article>)}</div></div>
-            <div className="mt-20 border-t border-white/10 pt-14"><p className="text-sm font-medium uppercase tracking-[0.2em] text-white/35">Bio personalizada</p><p className="mt-3 max-w-xl text-sm leading-6 text-white/40">Links personalizados para Instagram e redes sociais, reunindo informações e canais importantes em uma única página.</p><div className="mt-6 grid gap-5 md:grid-cols-3">{projects.filter((project) => project.category === "Bio personalizada").map((project) => <article key={project.title} className="group overflow-hidden rounded-3xl border border-white/10 bg-[#040404]"><a href={project.url} target="_blank" rel="noreferrer" className="relative block aspect-[4/3] overflow-hidden bg-black"><img src={`https://api.microlink.io/?url=${encodeURIComponent(project.url)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1200&viewport.height=900`} alt={`Capa da bio personalizada ${project.title}`} className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" /><div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" /><div className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs text-white/70 backdrop-blur-sm">Bio personalizada</div></a><div className="p-6"><p className="text-xs uppercase tracking-[0.18em] text-white/30">Bio personalizada</p><h3 className="mt-2 text-xl font-medium">{project.title}</h3><p className="mt-2 text-sm leading-6 text-white/45">{project.description}</p><a href={project.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/75 hover:text-white">Ver projeto <ArrowUpRight size={15} /></a></div></article>)}</div></div>
+          <div className="mt-14"><div><div className="mt-6 grid gap-5 md:grid-cols-3">{projects.filter((project) => project.category !== "Bio personalizada").map((project) => <article key={project.title} className="group overflow-hidden rounded-3xl border border-white/10 bg-[#000000]"><a href={project.url} target="_blank" rel="noreferrer" className="relative block aspect-[4/3] overflow-hidden bg-black"><img src={`https://api.microlink.io/?url=${encodeURIComponent(project.url)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1200&viewport.height=900`} alt={`Capa do site ${project.title}`} className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" /><div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" /><div className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs text-white/70 backdrop-blur-sm">Site</div></a><div className="p-6"><p className="text-xs uppercase tracking-[0.18em] text-white/30">{project.category}</p><h3 className="mt-2 text-xl font-medium">{project.title}</h3><p className="mt-2 text-sm leading-6 text-white/45">{project.description}</p><a href={project.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/75 hover:text-white">Ver projeto <ArrowUpRight size={15} /></a></div></article>)}</div></div>
+            <div className="mt-20 border-t border-white/10 pt-14"><p className="text-sm font-medium uppercase tracking-[0.2em] text-white/35">Bio personalizada</p><p className="mt-3 max-w-xl text-sm leading-6 text-white/40">Links personalizados para Instagram e redes sociais, reunindo informações e canais importantes em uma única página.</p><div className="mt-6 grid gap-5 md:grid-cols-3">{projects.filter((project) => project.category === "Bio personalizada").map((project) => <article key={project.title} className="group overflow-hidden rounded-3xl border border-white/10 bg-[#000000]"><a href={project.url} target="_blank" rel="noreferrer" className="relative block aspect-[4/3] overflow-hidden bg-black"><img src={`https://api.microlink.io/?url=${encodeURIComponent(project.url)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1200&viewport.height=900`} alt={`Capa da bio personalizada ${project.title}`} className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" /><div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" /><div className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs text-white/70 backdrop-blur-sm">Bio personalizada</div></a><div className="p-6"><p className="text-xs uppercase tracking-[0.18em] text-white/30">Bio personalizada</p><h3 className="mt-2 text-xl font-medium">{project.title}</h3><p className="mt-2 text-sm leading-6 text-white/45">{project.description}</p><a href={project.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/75 hover:text-white">Ver projeto <ArrowUpRight size={15} /></a></div></article>)}</div></div>
           </div>
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-[#030303]">
+      <section className="border-y border-white/10 bg-[#000000]">
         <div className="mx-auto grid max-w-6xl gap-14 px-5 py-24 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
           <div><p className="text-sm font-medium uppercase tracking-[0.2em] text-white/35">Fotos com IA</p></div>
           <div><p className="text-sm leading-6 text-white/40">Também crio fotos personalizadas com inteligência artificial para profissionais e momentos importantes, com propostas visuais que podem ser usadas nas redes sociais, divulgação e apresentação pessoal.</p><div className="mt-8 flex flex-wrap gap-2">{photoTypes.map((type) => <button key={type} type="button" onClick={() => setPhotoFilter((current) => (current === type ? null : type))} className={`rounded-full border px-4 py-2 text-sm transition ${photoFilter === type ? "border-white bg-white text-black" : "border-white/10 bg-white/[0.03] text-white/60 hover:border-white/30 hover:text-white"}`}>{type}</button>)}</div><div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{visiblePhotos.map((photo) => <figure key={photo.url} className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.025]"><img src={photo.url} alt={photo.alt} className="aspect-[3/4] w-full object-cover transition duration-500 hover:scale-[1.03]" loading="lazy" /><figcaption className="p-4 text-xs uppercase tracking-[0.15em] text-white/45">{photo.type}</figcaption></figure>)}</div></div>
