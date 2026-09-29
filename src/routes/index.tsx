@@ -236,12 +236,11 @@ function Index() {
       )}
       <CursorLight />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#000000]/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
-          <a href="#inicio" className="flex items-center gap-3">
-            <img src={logoAsset.url} alt="Logo Paulo Moraes" className="h-10 w-10 rounded-xl border border-white/15 object-cover" />
-          </a>
-          <div className="flex items-center gap-3">
-            <nav className="hidden items-center gap-7 text-sm text-white/60 md:flex">
+          <div className="relative mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
+            <a href="#inicio" className="flex items-center gap-3">
+              <img src={logoAsset.url} alt="Logo Paulo Moraes" className="h-10 w-10 rounded-xl border border-white/15 object-cover" />
+            </a>
+            <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-sm text-white/60 md:flex">
               <a href="#servicos" className="transition hover:text-white">Serviços</a>
               <a href="#projetos" className="transition hover:text-white">Projetos</a>
               <a href="#sobre" className="transition hover:text-white">Sobre</a>
@@ -258,7 +257,6 @@ function Index() {
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
-        </div>
         {menuOpen && (
           <div className="border-t border-white/10 bg-[#000000]/95 backdrop-blur-xl md:hidden">
             <nav className="mx-auto flex max-w-6xl flex-col px-5 py-4 text-sm">
