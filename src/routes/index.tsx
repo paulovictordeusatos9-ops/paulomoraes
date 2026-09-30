@@ -1,13 +1,75 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
-import logoAsset from "@/assets/paulo-moraes-logo.png.asset.json";
-import aniversarioAsset from "@/assets/foto-aniversario.png.asset.json";
-import gestacaoAsset from "@/assets/foto-gestacao.png.asset.json";
-import formaturaAsset from "@/assets/foto-formatura.png.asset.json";
-import familiaNatalAsset from "@/assets/foto-familia-natal.png.asset.json";
-import casalGramadoAsset from "@/assets/foto-casal-gramado.png.asset.json";
-import bebeBailarinaAsset from "@/assets/foto-bebe-bailarina.png.asset.json";
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Paulo Moraes — Sites, Links e Fotos com IA" },
+      { name: "description", content: "Portfólio de Paulo Moraes: criação de sites, links personalizados para redes sociais e fotos com inteligência artificial." },
+      { property: "og:title", content: "Paulo Moraes — Criação Digital" },
+      { property: "og:description", content: "Sites profissionais, links personalizados e fotos com IA." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Index,
+});
+
+const services = [
+  {
+    icon: BriefcaseBusiness,
+    title: "Sites profissionais",
+    text: "Sites modernos, que funcionam bem no celular e mostram seu trabalho com clareza.",
+  },
+  {
+    icon: Link2,
+    title: "Links personalizados",
+    text: "Páginas exclusivas para Instagram e redes sociais, reunindo seus principais canais em um só lugar.",
+  },
+  {
+    icon: WandSparkles,
+    title: "Fotos com IA",
+    text: "Criação de imagens personalizadas para profissionais, marcas e momentos especiais.",
+  },
+];
+
+const photoTypes = ["Formatura", "Aniversário", "Gestação", "Retratos de momentos"];
+
+const aiPhotos = [
+  {
+    url: "https://images.pexels.com/photos/7826300/pexels-photo-7826300.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    type: "Aniversário",
+    alt: "Mulher em vestido preto segurando balões dourados em uma comemoração de aniversário",
+  },
+  {
+    url: "https://images.pexels.com/photos/7029558/pexels-photo-7029558.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    type: "Gestação",
+    alt: "Casal em ensaio de gestante ao ar livre",
+  },
+  {
+    url: "https://images.pexels.com/photos/31382929/pexels-photo-31382929.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    type: "Formatura",
+    alt: "Formando celebrando a formatura com beca e capelo",
+  },
+  {
+    url: "https://images.pexels.com/photos/30124677/pexels-photo-30124677.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    type: "Retratos de momentos",
+    alt: "Família usando pijamas combinando ao lado da árvore de Natal",
+  },
+  {
+    url: "https://images.pexels.com/photos/33362180/pexels-photo-33362180.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    type: "Retratos de momentos",
+    alt: "Casal caminhando juntos em Gramado",
+  },
+  {
+    url: "https://images.pexels.com/photos/24804744/pexels-photo-24804744.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    type: "Retratos de momentos",
+    alt: "Criança em traje rosa inspirado em bailarina",
+  },
+];port { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -246,7 +308,7 @@ function Index() {
           <div className="intro-content absolute inset-0 flex flex-col items-center justify-center gap-7">
             <div className="relative flex h-64 w-64 items-center justify-center">
               <div className="intro-glow absolute inset-0 rounded-full bg-white/20 blur-3xl" />
-              <img src={logoAsset.url} alt="" className="intro-logo relative h-52 w-52 rounded-3xl border border-white/15 object-cover shadow-2xl shadow-black" />
+              <img src={"/favicon.png"} alt="" className="intro-logo relative h-52 w-52 rounded-3xl border border-white/15 object-cover shadow-2xl shadow-black" />
             </div>
             <div className="intro-line h-px w-40 bg-white/50" />
             <p className="intro-tagline text-sm uppercase tracking-[0.4em] text-white/60">Paulo Moraes</p>
@@ -257,7 +319,7 @@ function Index() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#000000]/80 backdrop-blur-xl">
           <div className="relative mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
             <a href="#inicio" className="flex items-center gap-3">
-              <img src={logoAsset.url} alt="Logo Paulo Moraes" className="h-10 w-10 rounded-xl border border-white/15 object-cover" />
+              <img src={"/favicon.png"} alt="Logo Paulo Moraes" className="h-10 w-10 rounded-xl border border-white/15 object-cover" />
             </a>
             <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-sm text-white/60 md:flex">
               <a href="#servicos" className="transition hover:text-white">Serviços</a>
@@ -301,7 +363,7 @@ function Index() {
           </div>
           <div className="rise-4 relative mx-auto w-full max-w-md">
             <div className="aspect-square overflow-hidden rounded-[2rem] border border-white/10 bg-[#000000] shadow-2xl shadow-black">
-              <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.6] object-cover" fetchPriority="high" />
+              <img src={"/favicon.png"} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.6] object-cover" fetchPriority="high" />
             </div>
           </div>
         </div>
