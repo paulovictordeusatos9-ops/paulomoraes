@@ -1,75 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Paulo Moraes — Sites, Links e Fotos com IA" },
-      { name: "description", content: "Portfólio de Paulo Moraes: criação de sites, links personalizados para redes sociais e fotos com inteligência artificial." },
-      { property: "og:title", content: "Paulo Moraes — Criação Digital" },
-      { property: "og:description", content: "Sites profissionais, links personalizados e fotos com IA." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
-});
-
-const services = [
-  {
-    icon: BriefcaseBusiness,
-    title: "Sites profissionais",
-    text: "Sites modernos, que funcionam bem no celular e mostram seu trabalho com clareza.",
-  },
-  {
-    icon: Link2,
-    title: "Links personalizados",
-    text: "Páginas exclusivas para Instagram e redes sociais, reunindo seus principais canais em um só lugar.",
-  },
-  {
-    icon: WandSparkles,
-    title: "Fotos com IA",
-    text: "Criação de imagens personalizadas para profissionais, marcas e momentos especiais.",
-  },
-];
-
-const photoTypes = ["Formatura", "Aniversário", "Gestação", "Retratos de momentos"];
-
-const aiPhotos = [
-  {
-    url: "https://images.pexels.com/photos/7826300/pexels-photo-7826300.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    type: "Aniversário",
-    alt: "Mulher em vestido preto segurando balões dourados em uma comemoração de aniversário",
-  },
-  {
-    url: "https://images.pexels.com/photos/7029558/pexels-photo-7029558.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    type: "Gestação",
-    alt: "Casal em ensaio de gestante ao ar livre",
-  },
-  {
-    url: "https://images.pexels.com/photos/31382929/pexels-photo-31382929.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    type: "Formatura",
-    alt: "Formando celebrando a formatura com beca e capelo",
-  },
-  {
-    url: "https://images.pexels.com/photos/30124677/pexels-photo-30124677.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    type: "Retratos de momentos",
-    alt: "Família usando pijamas combinando ao lado da árvore de Natal",
-  },
-  {
-    url: "https://images.pexels.com/photos/33362180/pexels-photo-33362180.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    type: "Retratos de momentos",
-    alt: "Casal caminhando juntos em Gramado",
-  },
-  {
-    url: "https://images.pexels.com/photos/24804744/pexels-photo-24804744.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    type: "Retratos de momentos",
-    alt: "Criança em traje rosa inspirado em bailarina",
-  },
-];port { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
-import { createFileRoute } from "@tanstack/react-router";
+import aniversarioAsset from "../assets/Imagem do ChatGPT 29 de set. de 2026, 17_14_05.png";
+import gestacaoAsset from "../assets/Imagem do ChatGPT 29 de set. de 2026, 17_59_27.png";
+import familiaNatalAsset from "../assets/Imagem do ChatGPT 29 de set. de 2026, 18_30_59.png";
+import casalGramadoAsset from "../assets/Imagem do ChatGPT 29 de set. de 2026, 18_41_48.png";
+import bebeBailarinaAsset from "../assets/Imagem do ChatGPT 29 de set. de 2026, 20_13_03.png";
+import formaturaAsset from "../assets/formatura_em_medicina_com_diploma_verde.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
