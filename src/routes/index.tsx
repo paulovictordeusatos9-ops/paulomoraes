@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
-import aniversarioAsset from "../assets/Imagem do ChatGPT 29 de set. de 2026, 17_14_05.png";
-import gestacaoAsset from "../assets/Imagem do ChatGPT 29 de set. de 2026, 17_59_27.png";
-import familiaNatalAsset from "../assets/Imagem do ChatGPT 29 de set. de 2026, 18_30_59.png";
-import casalGramadoAsset from "../assets/Imagem do ChatGPT 29 de set. de 2026, 18_41_48.png";
-import bebeBailarinaAsset from "../assets/Imagem do ChatGPT 29 de set. de 2026, 20_13_03.png";
-import formaturaAsset from "../assets/formatura_em_medicina_com_diploma_verde.png";
+import aniversarioAsset from "../assets/foto-aniversario.png.png";
+import gestacaoAsset from "../assets/foto-gestacao.png.png";
+import familiaNatalAsset from "../assets/foto-familia-natal.png.png";
+import casalGramadoAsset from "../assets/foto-casal-gramado.png.png";
+import bebeBailarinaAsset from "../assets/foto-bebe-bailarina.png.png";
+import formaturaAsset from "../assets/foto-formatura.png.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
