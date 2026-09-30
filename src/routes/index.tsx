@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
+import logoHq from "@/assets/paulo-moraes-logo-hq.png";
 const aniversarioAsset = { url: "/fotos/foto-aniversario.png" };
 const gestacaoAsset = { url: "/fotos/foto-gestacao.png" };
 const familiaNatalAsset = { url: "/fotos/foto-familia-natal.png" };
 const casalGramadoAsset = { url: "/fotos/foto-casal-gramado.png" };
 const bebeBailarinaAsset = { url: "/fotos/foto-bebe-bailarina.png" };
 const formaturaAsset = { url: "/fotos/foto-formatura.png" };
-const logoAsset = { url: "/fotos/paulo-moraes-logo.png" };
+const logoAsset = { url: logoHq };
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -244,9 +245,9 @@ function Index() {
           <div className="intro-panel intro-panel-top absolute inset-x-0 top-0 h-1/2 bg-[#000000]" />
           <div className="intro-panel intro-panel-bottom absolute inset-x-0 bottom-0 h-1/2 bg-[#000000]" />
           <div className="intro-content absolute inset-0 flex flex-col items-center justify-center gap-7">
-            <div className="relative flex h-64 w-64 items-center justify-center">
+            <div className="relative flex h-80 w-80 items-center justify-center overflow-hidden sm:h-96 sm:w-96">
               <div className="intro-glow absolute inset-0 rounded-full bg-white/20 blur-3xl" />
-              <img src={logoAsset.url} alt="" className="intro-logo relative h-52 w-52 rounded-3xl border border-white/15 object-contain shadow-2xl shadow-black" />
+              <img src={logoAsset.url} alt="" className="intro-logo relative h-full w-full scale-[1.55] object-contain drop-shadow-2xl" />
             </div>
             <div className="intro-line h-px w-40 bg-white/50" />
             <p className="intro-tagline text-sm uppercase tracking-[0.4em] text-white/60">Paulo Moraes</p>
@@ -301,7 +302,7 @@ function Index() {
           </div>
           <div className="rise-4 relative mx-auto w-full max-w-md">
             <div className="aspect-square overflow-hidden rounded-[2rem] border border-white/10 bg-[#000000] shadow-2xl shadow-black">
-              <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full object-contain" fetchPriority="high" decoding="async" />
+              <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.7] object-contain" fetchPriority="high" decoding="async" />
             </div>
           </div>
         </div>
