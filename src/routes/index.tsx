@@ -278,7 +278,7 @@ function Index() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#000000]/80 backdrop-blur-xl">
           <div className="relative mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
             <a href="#inicio" className="flex items-center gap-3">
-               <img src={logoAsset.url} alt="Logo Paulo Moraes" className="h-12 w-12 rounded-xl border border-white/15 object-contain" />
+               <img src={logoAsset.url} alt="Logo Paulo Moraes" className="h-14 w-14 object-contain drop-shadow-[0_0_14px_rgba(255,255,255,0.18)] sm:h-16 sm:w-16" />
             </a>
             <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-sm text-white/60 md:flex">
               <a href="#servicos" className="transition hover:text-white">Serviços</a>
