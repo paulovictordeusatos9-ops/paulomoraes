@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
-import aniversarioAsset from "../assets/foto-aniversario.png.png";
-import gestacaoAsset from "../assets/foto-gestacao.png.png";
-import familiaNatalAsset from "../assets/foto-familia-natal.png.png";
-import casalGramadoAsset from "../assets/foto-casal-gramado.png.png";
-import bebeBailarinaAsset from "../assets/foto-bebe-bailarina.png.png";
-import formaturaAsset from "../assets/foto-formatura.png.png";
-import logoAsset from "../assets/paulo-moraes-logo.png.png";
+import aniversarioAsset from "../assets/foto-aniversario.png.asset.json";
+import gestacaoAsset from "../assets/foto-gestacao.png.asset.json";
+import familiaNatalAsset from "../assets/foto-familia-natal.png.asset.json";
+import casalGramadoAsset from "../assets/foto-casal-gramado.png.asset.json";
+import bebeBailarinaAsset from "../assets/foto-bebe-bailarina.png.asset.json";
+import formaturaAsset from "../assets/foto-formatura.png.asset.json";
+import logoAsset from "../assets/paulo-moraes-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
