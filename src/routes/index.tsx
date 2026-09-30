@@ -247,7 +247,9 @@ function Index() {
           <div className="intro-content absolute inset-0 flex flex-col items-center justify-center gap-7">
             <div className="relative flex h-80 w-80 items-center justify-center overflow-hidden sm:h-96 sm:w-96">
               <div className="intro-glow absolute inset-0 rounded-full bg-white/20 blur-3xl" />
-              <img src={logoAsset.url} alt="" className="intro-logo relative h-full w-full scale-[1.55] object-contain drop-shadow-2xl" />
+              <div className="relative h-full w-full scale-[1.55]">
+                <img src={logoAsset.url} alt="" className="intro-logo h-full w-full object-contain drop-shadow-2xl" />
+              </div>
             </div>
             <div className="intro-line h-px w-40 bg-white/50" />
             <p className="intro-tagline text-sm uppercase tracking-[0.4em] text-white/60">Paulo Moraes</p>
@@ -258,7 +260,7 @@ function Index() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#000000]/80 backdrop-blur-xl">
           <div className="relative mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
             <a href="#inicio" className="flex items-center gap-3">
-              <img src={logoAsset.url} alt="Logo Paulo Moraes" className="h-10 w-10 rounded-xl border border-white/15 object-contain" />
+               <img src={logoAsset.url} alt="Logo Paulo Moraes" className="h-12 w-12 rounded-xl border border-white/15 object-contain" />
             </a>
             <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-sm text-white/60 md:flex">
               <a href="#servicos" className="transition hover:text-white">Serviços</a>
