@@ -3,11 +3,14 @@ import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle,
 import { createFileRoute } from "@tanstack/react-router";
 import logoHq from "@/assets/paulo-moraes-logo-hq.png";
 const aniversarioAsset = { url: "/fotos/foto-aniversario.png" };
+const aniversario26Asset = { url: "/fotos/foto-aniversario-26.png" };
 const gestacaoAsset = { url: "/fotos/foto-gestacao.png" };
+const gestacaoMaeFilhoAsset = { url: "/fotos/foto-gestacao-mae-filho.png" };
 const familiaNatalAsset = { url: "/fotos/foto-familia-natal.png" };
 const casalGramadoAsset = { url: "/fotos/foto-casal-gramado.png" };
 const bebeBailarinaAsset = { url: "/fotos/foto-bebe-bailarina.png" };
 const formaturaAsset = { url: "/fotos/foto-formatura.png" };
+const formaturaEnfermagemAsset = { url: "/fotos/foto-formatura-enfermagem.png" };
 const logoAsset = { url: logoHq };
 
 export const Route = createFileRoute("/")({
@@ -46,14 +49,29 @@ const photoTypes = ["Formatura", "Aniversário", "Gestação", "Retratos de mome
 
 const aiPhotos = [
   {
+    url: aniversario26Asset.url,
+    type: "Aniversário",
+    alt: "Mulher segurando velas em formato do número 26 em frente ao rosto",
+  },
+  {
     url: aniversarioAsset.url,
     type: "Aniversário",
     alt: "Mulher com vestido preto segurando balões dourados com os números 32",
   },
   {
+    url: gestacaoMaeFilhoAsset.url,
+    type: "Gestação",
+    alt: "Gestante sorrindo ao lado do filho, que abraça a barriga da mãe",
+  },
+  {
     url: gestacaoAsset.url,
     type: "Gestação",
     alt: "Casal em ensaio de gestante, com o marido abraçando a barriga da esposa",
+  },
+  {
+    url: formaturaEnfermagemAsset.url,
+    type: "Formatura",
+    alt: "Formanda de Enfermagem com beca verde e preta segurando o canudo",
   },
   {
     url: formaturaAsset.url,
