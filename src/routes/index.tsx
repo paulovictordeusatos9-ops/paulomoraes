@@ -7,6 +7,7 @@ import familiaNatalAsset from "../assets/foto-familia-natal.png.png";
 import casalGramadoAsset from "../assets/foto-casal-gramado.png.png";
 import bebeBailarinaAsset from "../assets/foto-bebe-bailarina.png.png";
 import formaturaAsset from "../assets/foto-formatura.png.png";
+import logoAsset from "../assets/paulo-moraes-logo.png.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -245,7 +246,7 @@ function Index() {
           <div className="intro-content absolute inset-0 flex flex-col items-center justify-center gap-7">
             <div className="relative flex h-64 w-64 items-center justify-center">
               <div className="intro-glow absolute inset-0 rounded-full bg-white/20 blur-3xl" />
-              <img src={"/favicon.png"} alt="" className="intro-logo relative h-52 w-52 rounded-3xl border border-white/15 object-cover shadow-2xl shadow-black" />
+              <img src={logoAsset.url} alt="" className="intro-logo relative h-52 w-52 rounded-3xl border border-white/15 object-contain shadow-2xl shadow-black" />
             </div>
             <div className="intro-line h-px w-40 bg-white/50" />
             <p className="intro-tagline text-sm uppercase tracking-[0.4em] text-white/60">Paulo Moraes</p>
@@ -256,7 +257,7 @@ function Index() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#000000]/80 backdrop-blur-xl">
           <div className="relative mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
             <a href="#inicio" className="flex items-center gap-3">
-              <img src={"/favicon.png"} alt="Logo Paulo Moraes" className="h-10 w-10 rounded-xl border border-white/15 object-cover" />
+              <img src={logoAsset.url} alt="Logo Paulo Moraes" className="h-10 w-10 rounded-xl border border-white/15 object-contain" />
             </a>
             <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-sm text-white/60 md:flex">
               <a href="#servicos" className="transition hover:text-white">Serviços</a>
@@ -300,7 +301,7 @@ function Index() {
           </div>
           <div className="rise-4 relative mx-auto w-full max-w-md">
             <div className="aspect-square overflow-hidden rounded-[2rem] border border-white/10 bg-[#000000] shadow-2xl shadow-black">
-              <img src={"/favicon.png"} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.6] object-cover" fetchPriority="high" />
+              <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full object-contain" fetchPriority="high" decoding="async" />
             </div>
           </div>
         </div>
