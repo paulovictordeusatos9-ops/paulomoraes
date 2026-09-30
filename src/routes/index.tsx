@@ -1,13 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
-import aniversarioAsset from "../assets/foto-aniversario.png.png";
-import gestacaoAsset from "../assets/foto-gestacao.png.png";
-import familiaNatalAsset from "../assets/foto-familia-natal.png.png";
-import casalGramadoAsset from "../assets/foto-casal-gramado.png.png";
-import bebeBailarinaAsset from "../assets/foto-bebe-bailarina.png.png";
-import formaturaAsset from "../assets/foto-formatura.png.png";
-import logoAsset from "../assets/paulo-moraes-logo.png.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -45,32 +38,32 @@ const photoTypes = ["Formatura", "Aniversário", "Gestação", "Retratos de mome
 
 const aiPhotos = [
   {
-    url: aniversarioAsset.url,
+    url: "https://raw.githubusercontent.com/paulovictordeusatos9-ops/paulomoraes/main/src/assets/foto-aniversario.png.png",
     type: "Aniversário",
     alt: "Mulher com vestido preto segurando balões dourados com os números 32",
   },
   {
-    url: gestacaoAsset.url,
+    url: "https://raw.githubusercontent.com/paulovictordeusatos9-ops/paulomoraes/main/src/assets/foto-gestacao.png.png",
     type: "Gestação",
     alt: "Casal em ensaio de gestante, com o marido abraçando a barriga da esposa",
   },
   {
-    url: formaturaAsset.url,
+    url: "https://raw.githubusercontent.com/paulovictordeusatos9-ops/paulomoraes/main/src/assets/foto-formatura.png.png",
     type: "Formatura",
     alt: "Formando em Medicina com beca branca, capelo e canudo verde",
   },
   {
-    url: familiaNatalAsset.url,
+    url: "https://raw.githubusercontent.com/paulovictordeusatos9-ops/paulomoraes/main/src/assets/foto-familia-natal.png.png",
     type: "Retratos de momentos",
     alt: "Família de pijamas vermelhos em retrato de Natal ao lado da árvore",
   },
   {
-    url: casalGramadoAsset.url,
+    url: "https://raw.githubusercontent.com/paulovictordeusatos9-ops/paulomoraes/main/src/assets/foto-casal-gramado.png.png",
     type: "Retratos de momentos",
     alt: "Casal sorrindo em frente ao mural de corações em Gramado",
   },
   {
-    url: bebeBailarinaAsset.url,
+    url: "https://raw.githubusercontent.com/paulovictordeusatos9-ops/paulomoraes/main/src/assets/foto-bebe-bailarina.png.png",
     type: "Retratos de momentos",
     alt: "Bebê sorridente com vestido rosa de bailarina ao lado do espelho e da barra de ballet",
   },
@@ -246,7 +239,7 @@ function Index() {
           <div className="intro-content absolute inset-0 flex flex-col items-center justify-center gap-7">
             <div className="relative flex h-64 w-64 items-center justify-center">
               <div className="intro-glow absolute inset-0 rounded-full bg-white/20 blur-3xl" />
-              <img src={logoAsset.url} alt="" className="intro-logo relative h-52 w-52 rounded-3xl border border-white/15 object-contain shadow-2xl shadow-black" />
+              <img src={"https://raw.githubusercontent.com/paulovictordeusatos9-ops/paulomoraes/main/src/assets/paulo-moraes-logo.png.png"} alt="" className="intro-logo relative h-52 w-52 rounded-3xl border border-white/15 object-contain shadow-2xl shadow-black" />
             </div>
             <div className="intro-line h-px w-40 bg-white/50" />
             <p className="intro-tagline text-sm uppercase tracking-[0.4em] text-white/60">Paulo Moraes</p>
