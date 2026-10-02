@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import logoHq from "@/assets/paulo-moraes-logo-hq.png";
-import waterDropAsset from "@/assets/gota-agua.mp4.asset.json";
-import waterDropWebmAsset from "@/assets/gota-agua.webm.asset.json";
 const aniversarioAsset = { url: "/fotos/foto-aniversario.png" };
 const aniversario26Asset = { url: "/fotos/foto-aniversario-26.png" };
 const gestacaoAsset = { url: "/fotos/foto-gestacao.png" };
@@ -345,8 +343,7 @@ function Index() {
               className={`h-full w-full object-cover object-center transition-opacity duration-[1200ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-100"}`}
               aria-hidden="true"
             >
-              <source src={waterDropWebmAsset.url} type="video/webm" />
-              <source src={waterDropAsset.url} type="video/mp4" />
+              <source src="/copy_24BDD769-22C9-4ABF-BF99-2EF884BC6B0A.mov" type="video/quicktime" />
             </video>
             <div className="pointer-events-none absolute inset-0 bg-black/20" />
           </div>
