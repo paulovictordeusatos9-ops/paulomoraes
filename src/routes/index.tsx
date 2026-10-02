@@ -334,8 +334,9 @@ function Index() {
               autoPlay
               playsInline
               preload="auto"
+              controls={false}
               onEnded={handleVideoEnded}
-              className={`h-full w-full object-cover object-center max-md:object-contain max-md:bg-black transition-opacity duration-[1200ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-100"}`}
+              className={`pointer-events-none h-full w-full object-cover object-center max-md:object-contain max-md:bg-black select-none transition-opacity duration-[1200ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-100"}`}
               aria-hidden="true"
             >
               <source src="/videos/video-principal.mp4" type="video/mp4" />
