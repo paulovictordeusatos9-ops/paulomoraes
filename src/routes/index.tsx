@@ -353,7 +353,7 @@ function Index() {
               <a href="#contato" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:scale-[1.02]">Falar comigo</a>
             </div>
           </div>
-          <div className={`rise-4 relative mx-auto w-full max-w-md transition-opacity duration-[1200ms] ease-out max-md:fixed max-md:inset-0 max-md:z-20 max-md:flex max-md:items-center max-md:justify-center max-md:max-w-none max-md:px-8 ${videoState === "fading" ? "max-md:opacity-100" : "max-md:opacity-0"}`}>
+          <div className={`rise-4 relative mx-auto w-full max-w-md transition-opacity duration-[1200ms] ease-out max-md:absolute max-md:inset-0 max-md:z-10 max-md:flex max-md:items-center max-md:justify-center max-md:max-w-none max-md:px-8 ${videoState === "fading" ? "max-md:opacity-100" : "max-md:opacity-0"}`}>
             <div className="aspect-square w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-[#000000] shadow-2xl shadow-black">
               <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.7] object-contain" fetchPriority="high" decoding="async" />
             </div>
