@@ -243,7 +243,7 @@ function Index() {
   const [photoFilter, setPhotoFilter] = useState<string | null>(null);
   const [introVisible, setIntroVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [videoState, setVideoState] = useState<"waiting" | "playing">("waiting");
+  const [videoState, setVideoState] = useState<"waiting" | "playing" | "fading">("waiting");
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const visiblePhotos = photoFilter ? aiPhotos.filter((photo) => photo.type === photoFilter) : aiPhotos;
 
@@ -266,6 +266,16 @@ function Index() {
       videoRef.current.play().catch(() => undefined);
     }
   }, [videoState]);
+
+  const handleVideoEnded = () => {
+    setVideoState("fading");
+    window.setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+      }
+      setVideoState("playing");
+    }, 1200);
+  };
 
 
   return (
@@ -323,22 +333,22 @@ function Index() {
 
       <section id="inicio" className="relative flex min-h-screen items-center pt-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(255,255,255,0.09),transparent_30%),radial-gradient(circle_at_15%_80%,rgba(255,255,255,0.04),transparent_28%)]" />
-        {videoState === "playing" && (
+        {videoState !== "waiting" && (
           <div className="absolute inset-0 z-0 bg-black">
             <video
               ref={videoRef}
               muted
               autoPlay
-              loop
               playsInline
               preload="auto"
-              className="h-full w-full object-cover opacity-100"
+              onEnded={handleVideoEnded}
+              className={`h-full w-full object-cover object-center transition-opacity duration-[1200ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-100"}`}
               aria-hidden="true"
             >
               <source src={waterDropWebmAsset.url} type="video/webm" />
               <source src={waterDropAsset.url} type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-black/20" />
+            <div className="pointer-events-none absolute inset-0 bg-black/20" />
           </div>
         )}
           <div className="relative z-10 mx-auto grid max-w-6xl gap-14 px-5 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8">
