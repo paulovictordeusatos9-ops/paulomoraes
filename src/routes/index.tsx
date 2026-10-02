@@ -339,8 +339,8 @@ function Index() {
               className={`h-full w-full object-cover transition-opacity duration-[1300ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-70"}`}
               aria-hidden="true"
             >
-              <source src={waterDropAsset.url} type="video/mp4" />
               <source src={waterDropWebmAsset.url} type="video/webm" />
+              <source src={waterDropAsset.url} type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.55),rgba(0,0,0,0.15)_45%,rgba(0,0,0,0.65))]" />
           </div>
