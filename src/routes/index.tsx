@@ -3,6 +3,7 @@ import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle,
 import { createFileRoute } from "@tanstack/react-router";
 import logoHq from "@/assets/paulo-moraes-logo-hq.png";
 import waterDropAsset from "@/assets/gota-agua.mp4.asset.json";
+import waterDropWebmAsset from "@/assets/gota-agua.webm.asset.json";
 const aniversarioAsset = { url: "/fotos/foto-aniversario.png" };
 const aniversario26Asset = { url: "/fotos/foto-aniversario-26.png" };
 const gestacaoAsset = { url: "/fotos/foto-gestacao.png" };
@@ -330,14 +331,17 @@ function Index() {
           <div className="absolute inset-0">
             <video
               ref={videoRef}
-              src={waterDropAsset.url}
               muted
               playsInline
               preload="auto"
+              onError={() => setVideoState("gone")}
               onEnded={handleVideoEnded}
               className={`h-full w-full object-cover transition-opacity duration-[1300ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-70"}`}
               aria-hidden="true"
-            />
+            >
+              <source src={waterDropAsset.url} type="video/mp4" />
+              <source src={waterDropWebmAsset.url} type="video/webm" />
+            </video>
             <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.55),rgba(0,0,0,0.15)_45%,rgba(0,0,0,0.65))]" />
           </div>
         )}
