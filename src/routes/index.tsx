@@ -350,7 +350,7 @@ function Index() {
             <h1 className="rise-2 max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.04em] sm:text-6xl lg:text-8xl">Seu trabalho merece ser visto da melhor forma!</h1>
             <div className="rise-3 mt-9 flex flex-col gap-3 sm:flex-row">
               <a href="#projetos" className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:scale-[1.02]">Ver meu portfólio <ArrowUpRight size={17} /></a>
-              <a href="#contato" className="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3.5 text-sm font-medium text-white/80 transition hover:border-white/30 hover:bg-white/[0.05]">Falar comigo</a>
+              <a href="#contato" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:scale-[1.02]">Falar comigo</a>
             </div>
           </div>
           <div className="rise-4 relative mx-auto w-full max-w-md">
