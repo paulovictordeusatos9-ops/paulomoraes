@@ -263,8 +263,24 @@ function Index() {
     const video = videoRef.current;
     if (videoState !== "playing" || !video) return;
 
-    video.muted = false;
+    // Mobile browsers can block autoplay when audio is enabled.
+    // Start muted so the video reliably renders/plays, then enable audio
+    // after the first user interaction.
+    video.muted = true;
     video.play().catch(() => undefined);
+
+    const enableAudio = () => {
+      video.muted = false;
+      video.play().catch(() => undefined);
+    };
+
+    window.addEventListener("pointerdown", enableAudio, { once: true, passive: true });
+    window.addEventListener("touchstart", enableAudio, { once: true, passive: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", enableAudio);
+      window.removeEventListener("touchstart", enableAudio);
+    };
   }, [videoState]);
 
   const handleVideoEnded = () => {
@@ -332,11 +348,14 @@ function Index() {
             <video
               ref={videoRef}
               autoPlay
+              muted
               playsInline
-              preload="metadata"
+              preload="auto"
               controls={false}
+              disablePictureInPicture
+              controlsList="nodownload noplaybackrate"
               onEnded={handleVideoEnded}
-              className={`pointer-events-none h-full w-full object-cover object-center max-md:object-contain max-md:bg-black select-none transition-opacity duration-[500ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-100"}`}
+              className={`pointer-events-none h-full w-full object-cover object-center max-md:object-cover max-md:bg-black select-none transition-opacity duration-[500ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-100"}`}
               aria-hidden="true"
             >
               <source src="/videos/video-principal.mp4" type="video/mp4" />
