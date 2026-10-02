@@ -282,7 +282,7 @@ function Index() {
             <div className="relative flex h-80 w-80 items-center justify-center overflow-hidden sm:h-96 sm:w-96">
               <div className="intro-glow absolute inset-0 rounded-full bg-white/20 blur-3xl" />
               <div className="relative h-full w-full scale-[1.55]">
-                <img src={logoAsset.url} alt="" className="intro-logo h-full w-full object-contain drop-shadow-2xl" />
+                <img src={logoAsset.url} alt="" className="intro-logo h-full w-full object-contain drop-shadow-2xl [image-rendering:auto]" />
               </div>
             </div>
             <div className="intro-line h-px w-40 bg-white/50" />
@@ -333,18 +333,18 @@ function Index() {
               ref={videoRef}
               autoPlay
               playsInline
-              preload="auto"
+              preload="metadata"
               controls={false}
               onEnded={handleVideoEnded}
-              className={`pointer-events-none h-full w-full object-cover object-center max-md:object-contain max-md:bg-black select-none transition-opacity duration-[1200ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-100"}`}
+              className={`pointer-events-none h-full w-full object-cover object-center max-md:object-contain max-md:bg-black select-none transition-opacity duration-[500ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-100"}`}
               aria-hidden="true"
             >
               <source src="/videos/video-principal.mp4" type="video/mp4" />
             </video>
             <div className="pointer-events-none absolute inset-0 bg-black/20" />
-            <div className={`pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-8 transition-opacity duration-[1200ms] ease-out md:hidden ${videoState === "fading" ? "opacity-100" : "opacity-0"}`}>
+            <div className={`pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-8 transition-opacity duration-[500ms] ease-out md:hidden ${videoState === "fading" ? "opacity-100" : "opacity-0"}`}>
               <div className="aspect-square w-full max-w-2xl overflow-hidden rounded-[2rem] border border-white/10 bg-[#000000] shadow-2xl shadow-black">
-                <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.7] object-contain" />
+                <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.7] object-contain [image-rendering:auto]" />
               </div>
             </div>
           </div>
