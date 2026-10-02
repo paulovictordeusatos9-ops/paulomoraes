@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import logoHq from "@/assets/paulo-moraes-logo-hq.png";
+import waterDropAsset from "@/assets/gota-agua.mp4.asset.json";
+import waterDropWebmAsset from "@/assets/gota-agua.webm.asset.json";
 const aniversarioAsset = { url: "/fotos/foto-aniversario.png" };
 const aniversario26Asset = { url: "/fotos/foto-aniversario-26.png" };
 const gestacaoAsset = { url: "/fotos/foto-gestacao.png" };
@@ -241,6 +243,8 @@ function Index() {
   const [photoFilter, setPhotoFilter] = useState<string | null>(null);
   const [introVisible, setIntroVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [videoState, setVideoState] = useState<"waiting" | "playing" | "fading" | "gone">("waiting");
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const visiblePhotos = photoFilter ? aiPhotos.filter((photo) => photo.type === photoFilter) : aiPhotos;
 
   useEffect(() => {
@@ -248,6 +252,7 @@ function Index() {
     document.body.style.overflow = "hidden";
     const timer = setTimeout(() => {
       setIntroVisible(false);
+      setVideoState("playing");
       document.body.style.overflow = previousOverflow;
     }, 3300);
     return () => {
@@ -255,6 +260,17 @@ function Index() {
       document.body.style.overflow = previousOverflow;
     };
   }, []);
+
+  useEffect(() => {
+    if (videoState === "playing" && videoRef.current) {
+      videoRef.current.play().catch(() => setVideoState("gone"));
+    }
+  }, [videoState]);
+
+  const handleVideoEnded = () => {
+    setVideoState("fading");
+    window.setTimeout(() => setVideoState("gone"), 1300);
+  };
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#000000] text-white">
@@ -311,6 +327,24 @@ function Index() {
 
       <section id="inicio" className="relative flex min-h-screen items-center pt-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(255,255,255,0.09),transparent_30%),radial-gradient(circle_at_15%_80%,rgba(255,255,255,0.04),transparent_28%)]" />
+        {videoState !== "waiting" && videoState !== "gone" && (
+          <div className="absolute inset-0">
+            <video
+              ref={videoRef}
+              muted
+              playsInline
+              preload="auto"
+              onError={() => setVideoState("gone")}
+              onEnded={handleVideoEnded}
+              className={`h-full w-full object-cover transition-opacity duration-[1300ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-70"}`}
+              aria-hidden="true"
+            >
+              <source src={waterDropWebmAsset.url} type="video/webm" />
+              <source src={waterDropAsset.url} type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.55),rgba(0,0,0,0.15)_45%,rgba(0,0,0,0.65))]" />
+          </div>
+        )}
           <div className="relative mx-auto grid max-w-6xl gap-14 px-5 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8">
           <div>
             <div className="rise-1 mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-[0.2em] text-white/55"><span className="h-1.5 w-1.5 rounded-full bg-white" />Design digital • Sites • IA</div>
