@@ -9,7 +9,6 @@ permissions:
 
 jobs:
   update-lockfile:
-    if: contains(github.event.head_commit.message, 'security: update TanStack Start')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,12 +16,14 @@ jobs:
         with:
           bun-version: latest
       - run: bun install
-      - name: Commit refreshed lockfile
+      - name: Commit refreshed lockfile and remove helper workflow
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           rm -f .github/workflows/update-tanstack-lock.yml
           git add bun.lock .github/workflows/update-tanstack-lock.yml
-          git diff --cached --quiet && exit 0
+          if git diff --cached --quiet; then
+            exit 0
+          fi
           git commit -m "chore: refresh lockfile after TanStack security update"
           git push
