@@ -343,7 +343,7 @@ function Index() {
             </video>
             <div className="pointer-events-none absolute inset-0 bg-black/20" />
             <div className={`pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-8 transition-opacity duration-[1200ms] ease-out md:hidden ${videoState === "fading" ? "opacity-100" : "opacity-0"}`}>
-              <div className="aspect-square w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-[#000000] shadow-2xl shadow-black">
+              <div className="aspect-square w-full max-w-2xl overflow-hidden rounded-[2rem] border border-white/10 bg-[#000000] shadow-2xl shadow-black">
                 <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.7] object-contain" />
               </div>
             </div>
