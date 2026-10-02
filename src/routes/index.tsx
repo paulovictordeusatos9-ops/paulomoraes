@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, BriefcaseBusiness, Instagram, Link2, Menu, MessageCircle, WandSparkles, X } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import logoHq from "@/assets/paulo-moraes-logo-hq.png";
+import waterDropAsset from "@/assets/gota-agua.mp4.asset.json";
 const aniversarioAsset = { url: "/fotos/foto-aniversario.png" };
 const aniversario26Asset = { url: "/fotos/foto-aniversario-26.png" };
 const gestacaoAsset = { url: "/fotos/foto-gestacao.png" };
@@ -241,6 +242,8 @@ function Index() {
   const [photoFilter, setPhotoFilter] = useState<string | null>(null);
   const [introVisible, setIntroVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [videoState, setVideoState] = useState<"waiting" | "playing" | "fading" | "gone">("waiting");
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const visiblePhotos = photoFilter ? aiPhotos.filter((photo) => photo.type === photoFilter) : aiPhotos;
 
   useEffect(() => {
@@ -248,6 +251,7 @@ function Index() {
     document.body.style.overflow = "hidden";
     const timer = setTimeout(() => {
       setIntroVisible(false);
+      setVideoState("playing");
       document.body.style.overflow = previousOverflow;
     }, 3300);
     return () => {
@@ -255,6 +259,17 @@ function Index() {
       document.body.style.overflow = previousOverflow;
     };
   }, []);
+
+  useEffect(() => {
+    if (videoState === "playing" && videoRef.current) {
+      videoRef.current.play().catch(() => setVideoState("gone"));
+    }
+  }, [videoState]);
+
+  const handleVideoEnded = () => {
+    setVideoState("fading");
+    window.setTimeout(() => setVideoState("gone"), 1300);
+  };
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#000000] text-white">
