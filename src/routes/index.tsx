@@ -242,6 +242,7 @@ function Index() {
   const [introVisible, setIntroVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [videoState, setVideoState] = useState<"waiting" | "playing" | "fading">("waiting");
+  const [videoMuted, setVideoMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const visiblePhotos = photoFilter ? aiPhotos.filter((photo) => photo.type === photoFilter) : aiPhotos;
 
@@ -261,9 +262,18 @@ function Index() {
 
   useEffect(() => {
     if (videoState === "playing" && videoRef.current) {
+      videoRef.current.muted = videoMuted;
       videoRef.current.play().catch(() => undefined);
     }
-  }, [videoState]);
+  }, [videoState, videoMuted]);
+
+  const activateVideoSound = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = false;
+    setVideoMuted(false);
+    video.play().catch(() => undefined);
+  };
 
   const handleVideoEnded = () => {
     setVideoState("fading");
@@ -335,7 +345,7 @@ function Index() {
           <div className="absolute inset-0 z-0 bg-black">
             <video
               ref={videoRef}
-              muted
+              muted={videoMuted}
               autoPlay
               playsInline
               preload="auto"
@@ -346,6 +356,15 @@ function Index() {
               <source src="/videos/video-principal.mp4" type="video/mp4" />
             </video>
             <div className="pointer-events-none absolute inset-0 bg-black/20" />
+            {videoMuted && (
+              <button
+                type="button"
+                onClick={activateVideoSound}
+                className="absolute bottom-6 right-6 z-20 rounded-full border border-white/20 bg-black/70 px-4 py-2.5 text-xs font-medium text-white backdrop-blur-md transition hover:bg-black/90"
+              >
+                🔊 Ativar som
+              </button>
+            )}
           </div>
         )}
           <div className="relative z-10 mx-auto grid max-w-6xl gap-14 px-5 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8">
