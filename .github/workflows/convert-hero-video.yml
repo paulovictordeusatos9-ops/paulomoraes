@@ -1,0 +1,42 @@
+name: Convert hero video to web MP4
+
+on:
+  push:
+    paths:
+      - "copy_24BDD769-22C9-4ABF-BF99-2EF884BC6B0A.mov"
+      - ".github/workflows/convert-hero-video.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install FFmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
+
+      - name: Convert MOV to optimized MP4
+        run: |
+          mkdir -p public/videos
+          ffmpeg -y -i "copy_24BDD769-22C9-4ABF-BF99-2EF884BC6B0A.mov" \
+            -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,format=yuv420p" \
+            -r 30 -c:v libx264 -preset medium -crf 20 \
+            -movflags +faststart -an \
+            "public/videos/video-principal.mp4"
+
+      - name: Commit converted video
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/videos/video-principal.mp4
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: add optimized hero video"
+          git push
