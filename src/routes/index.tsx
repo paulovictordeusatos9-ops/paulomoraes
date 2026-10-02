@@ -328,7 +328,7 @@ function Index() {
       <section id="inicio" className="relative flex min-h-screen items-center pt-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(255,255,255,0.09),transparent_30%),radial-gradient(circle_at_15%_80%,rgba(255,255,255,0.04),transparent_28%)]" />
         {videoState !== "waiting" && (
-          <div className="absolute inset-0 z-0 bg-black">
+          <div className="absolute inset-0 z-0 bg-black max-md:relative max-md:inset-auto max-md:z-10 max-md:h-[calc(100vh-80px)] max-md:w-full">
             <video
               ref={videoRef}
               autoPlay
@@ -342,9 +342,14 @@ function Index() {
               <source src="/videos/video-principal.mp4" type="video/mp4" />
             </video>
             <div className="pointer-events-none absolute inset-0 bg-black/20" />
+            <div className={`pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-8 transition-opacity duration-[1200ms] ease-out md:hidden ${videoState === "fading" ? "opacity-100" : "opacity-0"}`}>
+              <div className="aspect-square w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-[#000000] shadow-2xl shadow-black">
+                <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.7] object-contain" />
+              </div>
+            </div>
           </div>
         )}
-          <div className="relative z-10 mx-auto grid max-w-6xl gap-14 px-5 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8">
+          <div className="relative z-10 mx-auto grid max-w-6xl gap-14 px-5 py-20 max-md:pt-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8">
           <div>
             <div className="rise-1 mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-[0.2em] text-white/55"><span className="h-1.5 w-1.5 rounded-full bg-white" />Design digital • Sites • IA</div>
             <h1 className="rise-2 max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.04em] sm:text-6xl lg:text-8xl">Seu trabalho merece ser visto da melhor forma!</h1>
@@ -353,7 +358,7 @@ function Index() {
               <a href="#contato" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:scale-[1.02]">Falar comigo</a>
             </div>
           </div>
-          <div className={`rise-4 relative mx-auto w-full max-w-md transition-opacity duration-[1200ms] ease-out max-md:absolute max-md:inset-0 max-md:z-10 max-md:flex max-md:items-center max-md:justify-center max-md:max-w-none max-md:px-8 ${videoState === "fading" ? "max-md:opacity-100" : "max-md:opacity-0"}`}>
+          <div className={`rise-4 relative mx-auto w-full max-w-md transition-opacity duration-[1200ms] ease-out max-md:hidden ${videoState === "fading" ? "max-md:opacity-100" : "max-md:opacity-0"}`}>
             <div className="aspect-square w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-[#000000] shadow-2xl shadow-black">
               <img src={logoAsset.url} alt="Paulo Moraes Digital Creative Studio" className="h-full w-full scale-[1.7] object-contain" fetchPriority="high" decoding="async" />
             </div>
