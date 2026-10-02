@@ -328,7 +328,7 @@ function Index() {
       <section id="inicio" className="relative flex min-h-screen items-center pt-20 max-md:flex-col">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(255,255,255,0.09),transparent_30%),radial-gradient(circle_at_15%_80%,rgba(255,255,255,0.04),transparent_28%)]" />
         {videoState !== "waiting" && (
-          <div className="absolute inset-0 z-0 bg-black max-md:relative max-md:inset-auto max-md:z-10 max-md:order-2 max-md:h-[calc(100vh-80px)] max-md:w-full">
+          <div className="absolute inset-0 z-0 bg-black max-md:relative max-md:inset-auto max-md:z-10 max-md:order-2 max-md:h-[calc(100vh-120px)] max-md:w-full">
             <video
               ref={videoRef}
               autoPlay
@@ -349,7 +349,7 @@ function Index() {
             </div>
           </div>
         )}
-          <div className="relative z-10 mx-auto order-1 grid w-full max-w-6xl gap-14 px-5 py-20 max-md:pt-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8">
+          <div className="relative z-10 mx-auto order-1 grid w-full max-w-6xl gap-14 px-5 py-20 max-md:pt-6 max-md:pb-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8">
           <div>
             <div className="rise-1 mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-[0.2em] text-white/55"><span className="h-1.5 w-1.5 rounded-full bg-white" />Design digital • Sites • IA</div>
             <h1 className="rise-2 max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.04em] sm:text-6xl lg:text-8xl">Seu trabalho merece ser visto da melhor forma!</h1>
@@ -366,7 +366,7 @@ function Index() {
         </div>
       </section>
 
-      <section id="servicos" className="border-t border-white/10 bg-[#000000]">
+      <section id="servicos" className="-mt-1 border-t border-white/10 bg-[#000000]">
         <div className="mx-auto max-w-6xl px-5 py-14 lg:px-8">
           <div className="max-w-2xl"><p className="text-2xl font-semibold tracking-tight sm:text-3xl">Serviços</p><h2 className="mt-3 text-xs font-medium uppercase tracking-[0.2em] text-white/35">Soluções digitais para colocar sua marca no lugar certo.</h2></div>
           <div className="mt-14 grid gap-4 md:grid-cols-3">{services.map(({ icon: Icon, title, text }) => <article key={title} className="group rounded-3xl border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.045]"><div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05]"><Icon size={19} className="text-white/70" /></div><h3 className="mt-8 text-xl font-medium">{title}</h3><p className="mt-3 text-sm leading-6 text-white/45">{text}</p></article>)}</div>
