@@ -283,12 +283,6 @@ function Index() {
 
   const handleVideoEnded = () => {
     setVideoState("fading");
-    window.setTimeout(() => {
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-      }
-      setVideoState("playing");
-    }, 1200);
   };
 
 
