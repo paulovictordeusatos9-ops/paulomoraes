@@ -325,10 +325,10 @@ function Index() {
         )}
       </header>
 
-      <section id="inicio" className="relative flex min-h-screen items-center pt-20">
+      <section id="inicio" className="relative flex min-h-screen items-center pt-20 max-md:flex-col">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(255,255,255,0.09),transparent_30%),radial-gradient(circle_at_15%_80%,rgba(255,255,255,0.04),transparent_28%)]" />
         {videoState !== "waiting" && (
-          <div className="absolute inset-0 z-0 bg-black max-md:relative max-md:inset-auto max-md:z-10 max-md:h-[calc(100vh-80px)] max-md:w-full">
+          <div className="absolute inset-0 z-0 bg-black max-md:relative max-md:inset-auto max-md:z-10 max-md:order-2 max-md:h-[calc(100vh-80px)] max-md:w-full">
             <video
               ref={videoRef}
               autoPlay
@@ -349,7 +349,7 @@ function Index() {
             </div>
           </div>
         )}
-          <div className="relative z-10 mx-auto grid max-w-6xl gap-14 px-5 py-20 max-md:pt-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8">
+          <div className="relative z-10 mx-auto order-1 grid w-full max-w-6xl gap-14 px-5 py-20 max-md:pt-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8">
           <div>
             <div className="rise-1 mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-[0.2em] text-white/55"><span className="h-1.5 w-1.5 rounded-full bg-white" />Design digital • Sites • IA</div>
             <h1 className="rise-2 max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.04em] sm:text-6xl lg:text-8xl">Seu trabalho merece ser visto da melhor forma!</h1>
