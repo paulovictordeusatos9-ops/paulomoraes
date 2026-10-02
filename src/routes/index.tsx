@@ -344,7 +344,6 @@ function Index() {
               aria-hidden="true"
             >
               <source src="/videos/video-principal.mp4" type="video/mp4" />
-              <source src="/copy_24BDD769-22C9-4ABF-BF99-2EF884BC6B0A.mov" type="video/quicktime" />
             </video>
             <div className="pointer-events-none absolute inset-0 bg-black/20" />
           </div>
