@@ -1,0 +1,31 @@
+name: Refresh TanStack lockfile
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "package.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Refresh lockfile
+        run: bun install
+      - name: Commit lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bun.lock
+          git diff --cached --quiet || git commit -m "chore: align TanStack lockfile"
+          git push
