@@ -242,7 +242,7 @@ function Index() {
   const [introVisible, setIntroVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [videoState, setVideoState] = useState<"waiting" | "playing" | "fading">("waiting");
-  const [videoMuted, setVideoMuted] = useState(true);
+  const [videoMuted, setVideoMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const visiblePhotos = photoFilter ? aiPhotos.filter((photo) => photo.type === photoFilter) : aiPhotos;
 
@@ -261,10 +261,16 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    if (videoState === "playing" && videoRef.current) {
-      videoRef.current.muted = videoMuted;
-      videoRef.current.play().catch(() => undefined);
-    }
+    const video = videoRef.current;
+    if (videoState !== "playing" || !video) return;
+
+    video.muted = videoMuted;
+    video.play().catch(() => {
+      // Browsers that block audible autoplay fall back to muted playback.
+      video.muted = true;
+      setVideoMuted(true);
+      video.play().catch(() => undefined);
+    });
   }, [videoState, videoMuted]);
 
   const activateVideoSound = () => {
@@ -350,7 +356,7 @@ function Index() {
               playsInline
               preload="auto"
               onEnded={handleVideoEnded}
-              className={`h-full w-full object-cover object-center max-md:object-center transition-opacity duration-[1200ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-100"}`}
+              className={`h-full w-full object-cover object-center max-md:object-contain max-md:bg-black transition-opacity duration-[1200ms] ease-out ${videoState === "fading" ? "opacity-0" : "opacity-100"}`}
               aria-hidden="true"
             >
               <source src="/videos/video-principal.mp4" type="video/mp4" />
